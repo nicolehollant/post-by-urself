@@ -10,11 +10,14 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@types/heic-convert": "^1.2.0",
     "@types/node": "^18.16.19",
     "@vite-pwa/nuxt": "^0.1.0",
     "nuxt": "^3.6.3"
   },
   "dependencies": {
-    "senp-ui": "^0.1.5"
+    "heic-convert": "^1.2.4",
+    "senp-ui": "^0.1.5",
+    "vue-advanced-cropper": "^2.8.8"
   }
 }

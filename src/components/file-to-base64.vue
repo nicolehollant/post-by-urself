@@ -5,14 +5,7 @@
     @dragleave="dragleave"
     @drop="drop"
   >
-    <input
-      type="file"
-      id="assetsFieldHandle"
-      class="sr-only"
-      ref="inputRef"
-      @change="updateInputHandler"
-      accept=".pdf,.jpg,.jpeg,.png"
-    />
+    <input type="file" id="assetsFieldHandle" class="sr-only" ref="inputRef" @change="updateInputHandler" />
 
     <label for="assetsFieldHandle" class="block cursor-pointer">
       <div class="group grid gap-2 text-center">

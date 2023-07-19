@@ -17,10 +17,11 @@
           <p class="mb-4 bg-gray-950/30 px-4 py-2 rounded text-sm text-gray-300">
             local images are more secure than hosted ones, but are lower quality and take up more space on your device
           </p>
-          <FileToBase64 previewClass="max-h-40" v-model="state.mediaUrlLocal" :resized-width="512"> </FileToBase64>
-          <SenpButton class="mt-4" @click="$emit('addMedia', state.mediaUrlLocal)" :disabled="!state.mediaUrlLocal"
-            >Add Image</SenpButton
-          >
+          <ImagePicker
+            @update:image="(result) => $emit('addMedia', result)"
+            label="Add Image"
+            :size="768"
+          ></ImagePicker>
         </div>
         <div v-if="active === 'hosted'">
           <p class="mb-4 bg-gray-950/30 px-4 py-2 rounded text-sm text-gray-300">
