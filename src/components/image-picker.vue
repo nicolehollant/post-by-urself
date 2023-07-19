@@ -27,14 +27,6 @@
             </p>
           </div>
         </div>
-        <div class="absolute -inset-2 z-10">
-          <img
-            src="@/assets/upload.png"
-            alt=""
-            :class="{ 'blur-sm scale-150 translate-y-4 saturate-100': draggedOver }"
-            class="opacity-30 object-cover object-[25%_25%] w-full h-full filter brightness-75 saturate-[0.75] transition-all duration-500 transform -translate-x-16 scale-125"
-          />
-        </div>
       </template>
     </SenpFileInput>
   </section>
