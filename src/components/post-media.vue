@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full" ref="container">
+  <div class="w-full" ref="container">
     <div
       class="grid grid-flow-col items auto-cols-max w-full overflow-auto gap-2 shrink-0 pt-2 snap-x"
       v-if="media.length"
