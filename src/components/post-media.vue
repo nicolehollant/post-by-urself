@@ -11,7 +11,12 @@
       ' aspect-[2/1]': media.length === 4,
     }"
   >
-    <div class="rounded-lg overflow-hidden border-2 border-gray-800/20 h-full w-full">
+    <div
+      class="rounded-lg overflow-hidden border-2 border-gray-800/20 w-full"
+      :class="{
+        'h-full': maxDimension === 'height',
+      }"
+    >
       <img
         :src="pic.url"
         :alt="pic.alt"
