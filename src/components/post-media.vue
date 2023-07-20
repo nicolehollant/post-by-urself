@@ -16,16 +16,24 @@
           maxWidth: `${containerWidth}px`,
         }"
       >
-        <div class="rounded-lg overflow-hidden max-h-[calc(75vh-8rem)] border-2 border-gray-800/20 max-w-full h-full">
+        <div
+          class="rounded-lg overflow-hidden max-h-[calc(75vh-8rem)] border-2 border-gray-800/20 h-full"
+          :style="{
+            maxWidth: `${containerWidth}px`,
+          }"
+        >
           <img
             :src="pic.url"
             :alt="pic.alt"
             @load="() => setIntrinsicSizeClassesOnLoad()"
-            class="object-cover mx-auto max-w-full max-h-[calc(75vh-8rem)] aspect-auto"
-            :class="{
-              'h-full': maxDimension === 'height',
+            class="object-cover mx-auto max-h-[calc(75vh-8rem)] aspect-auto"
+            :style="{
+              maxWidth: `${containerWidth - 4}px`,
             }"
           />
+          <!-- :class="{
+              'h-full': maxDimension === 'height',
+            }" -->
         </div>
       </button>
     </div>
