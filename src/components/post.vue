@@ -120,7 +120,16 @@
       </div>
     </div>
     <p class="pt-1.5 text-2xl leading-tight" v-if="post.text">{{ post.text }}</p>
-    <PostMedia :media="post.media"></PostMedia>
+    <div
+      class="grid gap-1 pt-2"
+      :class="{
+        'grid-rows-2': post.media.length > 2,
+        'grid-cols-2': post.media.length > 1,
+      }"
+      v-if="post.media.length"
+    >
+      <PostMedia :media="post.media"></PostMedia>
+    </div>
     <div class="flex items-center gap-2 text-lg text-gray-500">
       <p>
         {{
