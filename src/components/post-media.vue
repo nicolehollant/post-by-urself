@@ -12,19 +12,19 @@
     }"
   >
     <div
-      class="rounded-lg overflow-hidden border-2 border-gray-800/20 w-full"
+      class="rounded-lg overflow-hidden max-h-full border-2 border-gray-800/20 w-full"
       :class="{
-        'max-h-full': maxDimension === 'height',
+        'h-full': maxDimension === 'height',
       }"
     >
       <img
         :src="pic.url"
         :alt="pic.alt"
         @load="() => setIntrinsicSizeClassesOnLoad()"
-        class="object-cover mx-auto max-w-full"
+        class="object-cover mx-auto max-w-full max-h-full"
         :class="{
-          'max-h-full': maxDimension === 'height',
-          'max-w-full': maxDimension === 'width',
+          'h-full': maxDimension === 'height',
+          'w-full': maxDimension === 'width',
         }"
       />
     </div>
