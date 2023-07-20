@@ -3,7 +3,7 @@
     <button
       :href="href"
       @click.self="navigate"
-      class="text-left cursor-pointer grid grid-cols-[auto,minmax(0,1fr)] gap-4 border-b-2 border-gray-900 px-0 py-4"
+      class="text-left cursor-pointer grid grid-cols-[auto,1fr] gap-4 border-b-2 border-gray-900 px-0 py-4"
     >
       <NuxtLink to="/profile">
         <SenpAvatar :src="$profile.avatar" :seed="$profile.userName || '1'" :alt="$profile.userName" />
