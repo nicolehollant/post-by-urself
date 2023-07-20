@@ -46,7 +46,7 @@
                 leading="mdi:image-plus"
               ></SenpButton>
               <div v-for="(media, i) in state.media" class="relative shrink-0">
-                <img :src="media" class="h-32 max-w-48 w-max rounded-lg" alt="" />
+                <img :src="media" class="h-32 max-w-[12rem] w-max rounded-lg" alt="" />
                 <SenpButton
                   intent="destructive"
                   size="xs"
