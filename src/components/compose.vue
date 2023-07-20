@@ -26,7 +26,7 @@
           v-if="state.menuOpen"
           class="h-screen max-h-screen w-full bg-gray-950 px-3 fixed top-0 left-0 bottom-0 pb-6 right-0 z-50 md:hidden"
         >
-          <div class="grid grid-rows-[auto,1fr] gap-4 h-full overflow-y-scroll">
+          <div class="grid grid-rows-[auto,auto,1fr] gap-4 h-full overflow-y-scroll">
             <header
               class="flex h-16 items-center px-2 justify-between sticky top-0 bg-gray-950/80 backdrop-blur border-b border-gray-900"
             >
@@ -38,6 +38,25 @@
               ></SenpButton>
               <SenpButton :loading="loading" @click="submit" label="Post" rounded="full"></SenpButton>
             </header>
+            <div class="flex items-center gap-4 px-2 w-full overflow-auto pt-2 pb-4 border-b border-gray-900">
+              <SenpButton
+                @click="state.imageMenuOpen = true"
+                class="mr-4"
+                intent="outline"
+                leading="mdi:image-plus"
+              ></SenpButton>
+              <div v-for="(media, i) in state.media" class="relative shrink-0">
+                <img :src="media" class="h-32 max-w-48 w-max rounded-lg" alt="" />
+                <SenpButton
+                  intent="destructive"
+                  size="xs"
+                  square
+                  class="absolute -top-2 -right-2 opacity-90"
+                  leading="mdi:trash-can"
+                  @click="() => state.media.splice(i, 1)"
+                ></SenpButton>
+              </div>
+            </div>
             <label for="postbox" class="grid px-2 grid-cols-[auto,1fr] gap-4 place-items-start">
               <SenpAvatar
                 :src="$profile.value?.avatar"
@@ -52,21 +71,6 @@
                 multiline
               ></textarea>
             </label>
-
-            <div class="flex items-center gap-4">
-              <div v-for="(media, i) in state.media" class="relative">
-                <img :src="media" class="h-32 max-w-48 rounded-lg" alt="" />
-                <SenpButton
-                  intent="destructive"
-                  size="xs"
-                  square
-                  class="absolute -top-2 -right-2 opacity-90"
-                  leading="mdi:trash-can"
-                  @click="() => state.media.splice(i, 1)"
-                ></SenpButton>
-              </div>
-              <SenpButton @click="state.imageMenuOpen = true" intent="outline" leading="mdi:image-plus"></SenpButton>
-            </div>
           </div>
         </div>
       </Transition>

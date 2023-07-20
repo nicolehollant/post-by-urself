@@ -11,8 +11,17 @@
       ' aspect-[2/1]': media.length === 4,
     }"
   >
-    <div class="rounded-lg border-2 border-gray-800/20 h-full w-full">
-      <img :src="pic.url" :alt="pic.alt" class="object-cover h-full mx-auto max-w-full" />
+    <div class="rounded-lg overflow-hidden border-2 border-gray-800/20 h-full w-full">
+      <img
+        :src="pic.url"
+        :alt="pic.alt"
+        @load="() => setIntrinsicSizeClassesOnLoad()"
+        class="object-cover mx-auto max-w-full"
+        :class="{
+          'h-full': maxDimension === 'height',
+          'w-full': maxDimension === 'width',
+        }"
+      />
     </div>
   </button>
   <SenpDrawer
@@ -85,8 +94,24 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   media: { url: string; alt: string }[]
 }>()
 const activeMediaIndex = ref<number | null>()
+const maxDimension = ref('height')
+
+function setIntrinsicSizeClassesOnLoad() {
+  if (props.media.length === 1) {
+    const url = props.media[0].url
+    const image = new Image()
+    image.onload = function () {
+      if (image.width > image.height) {
+        maxDimension.value = 'width'
+      } else {
+        maxDimension.value = 'height'
+      }
+    }
+    image.src = url
+  }
+}
 </script>
