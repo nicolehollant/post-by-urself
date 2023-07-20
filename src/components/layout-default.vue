@@ -30,6 +30,7 @@
           <img src="/favicon.png" alt="PostByUrself Logo" class="w-12 h-12" />
           <h1>PostByUrself</h1>
         </NuxtLink>
+        <p class="text-[10px] ml-4 text-gray-500">v0.0.2</p>
       </slot>
     </template>
     <template #content>
