@@ -46,16 +46,7 @@
           </SenpMenu>
         </div>
         <p @click="navigate" class="pt-1.5 leading-tight" v-if="post.text">{{ post.text }}</p>
-        <div
-          class="grid shrink-0 gap-1 pt-2"
-          :class="{
-            'grid-rows-2': post.media.length > 2,
-            'grid-cols-2': post.media.length > 1,
-          }"
-          v-if="post.media.length"
-        >
-          <PostMedia :media="post.media"></PostMedia>
-        </div>
+        <PostMedia :media="post.media"></PostMedia>
         <div class="flex justify-between pt-4 text-gray-500" @click="navigate">
           <div class="flex items-end gap-2">
             <Icon name="ant-design:comment-outlined" />
@@ -107,7 +98,7 @@
       />
     </button>
   </NuxtLink>
-  <div v-else class="flex flex-col gap-4 py-4">
+  <div v-else class="flex flex-col gap-4 py-4 w-full overflow-hidden">
     <div class="flex items-center gap-4">
       <NuxtLink to="/profile">
         <SenpAvatar :src="$profile.avatar" :seed="$profile.userName || '1'" :alt="$profile.userName" />
@@ -120,16 +111,8 @@
       </div>
     </div>
     <p class="pt-1.5 text-2xl leading-tight" v-if="post.text">{{ post.text }}</p>
-    <div
-      class="grid gap-1 pt-2"
-      :class="{
-        'grid-rows-2': post.media.length > 2,
-        'grid-cols-2': post.media.length > 1,
-      }"
-      v-if="post.media.length"
-    >
-      <PostMedia :media="post.media"></PostMedia>
-    </div>
+
+    <PostMedia :media="post.media"></PostMedia>
     <div class="flex items-center gap-2 text-lg text-gray-500">
       <p>
         {{

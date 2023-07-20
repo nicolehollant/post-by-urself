@@ -1,28 +1,26 @@
 <template>
-  <button
-    @click="() => (activeMediaIndex = i)"
-    v-for="(pic, i) in media"
-    class="h-full"
-    :class="{
-      'row-span-2': media.length === 3 && i === 0,
-      ' max-h-[calc(75vh-8rem)]': media.length === 1,
-      ' aspect-[7/8]': media.length === 2 || (media.length === 3 && i === 0),
-      ' aspect-[7/4]': media.length === 3 && i > 0,
-      ' aspect-[2/1]': media.length === 4,
+  <div
+    class="grid grid-flow-col auto-cols-max w-full overflow-auto gap-2 shrink-0 pt-2 snap-x"
+    v-if="media.length"
+    :style="{
+      paddingRight: lastImageWidth > 0 ? `calc(100% - ${lastImageWidth}px)` : '',
     }"
+    ref="container"
   >
-    <div class="rounded-lg overflow-hidden max-h-[calc(75vh-8rem)] border-2 border-gray-800/20 w-full h-full">
-      <img
-        :src="pic.url"
-        :alt="pic.alt"
-        @load="() => setIntrinsicSizeClassesOnLoad()"
-        class="object-cover mx-auto max-w-full max-h-[calc(75vh-8rem)]"
-        :class="{
-          'h-full': maxDimension === 'height',
-        }"
-      />
-    </div>
-  </button>
+    <button @click="() => (activeMediaIndex = i)" v-for="(pic, i) in media" class="h-max snap-start">
+      <div class="rounded-lg overflow-hidden max-h-[calc(75vh-8rem)] border-2 border-gray-800/20 w-full h-full">
+        <img
+          :src="pic.url"
+          :alt="pic.alt"
+          @load="() => setIntrinsicSizeClassesOnLoad()"
+          class="object-cover mx-auto max-w-full max-h-[calc(75vh-8rem)] aspect-auto"
+          :class="{
+            'h-full': maxDimension === 'height',
+          }"
+        />
+      </div>
+    </button>
+  </div>
   <SenpDrawer
     :open="activeMediaIndex != null"
     @update:open="() => (activeMediaIndex = null)"
@@ -96,12 +94,17 @@
 const props = defineProps<{
   media: { url: string; alt: string }[]
 }>()
+defineEmits<{
+  (event: 'update:lastImageWidth', value: number): void
+}>()
 const activeMediaIndex = ref<number | null>()
 const maxDimension = ref('height')
+const lastImageWidth = ref(0)
+const container = ref<null | HTMLDivElement>(null)
 
 function setIntrinsicSizeClassesOnLoad() {
-  if (props.media.length === 1) {
-    const url = props.media[0].url
+  if (props.media.length === props.media.length - 1) {
+    const url = props.media[props.media.length - 1].url
     const image = new Image()
     image.onload = function () {
       if (image.width > image.height) {
@@ -113,4 +116,9 @@ function setIntrinsicSizeClassesOnLoad() {
     image.src = url
   }
 }
+
+onMounted(() => {
+  lastImageWidth.value =
+    [...(container.value?.querySelectorAll('button') || [])].at(-1)?.getBoundingClientRect().width ?? 0
+})
 </script>
