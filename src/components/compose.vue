@@ -1,6 +1,6 @@
 <template>
   <section class="md:hidden">
-    <div class="fixed bottom-[5.5rem] right-4">
+    <div class="fixed bottom-[5.5rem] right-4" v-if="!state.menuOpen">
       <SenpButton
         @click="state.menuOpen = true"
         leading="mdi:pen-plus"
@@ -163,9 +163,11 @@ watch(
   () => {
     nextTick(() => {
       nextTick(() => {
-        if (document) {
-          ;(document.querySelector('textarea#postbox') as HTMLTextAreaElement | null)?.focus()
-        }
+        setTimeout(() => {
+          if (document) {
+            ;(document.querySelector('textarea#postbox') as HTMLTextAreaElement | null)?.focus()
+          }
+        }, 800)
       })
     })
   }
