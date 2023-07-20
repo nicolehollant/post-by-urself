@@ -11,20 +11,14 @@
       ' aspect-[2/1]': media.length === 4,
     }"
   >
-    <div
-      class="rounded-lg overflow-hidden max-h-full border-2 border-gray-800/20 w-full"
-      :class="{
-        'h-full': maxDimension === 'height',
-      }"
-    >
+    <div class="rounded-lg overflow-hidden max-h-[calc(75vh-8rem)] border-2 border-gray-800/20 w-full h-full">
       <img
         :src="pic.url"
         :alt="pic.alt"
         @load="() => setIntrinsicSizeClassesOnLoad()"
-        class="object-cover mx-auto max-w-full max-h-full"
+        class="object-cover mx-auto max-w-full max-h-[calc(75vh-8rem)]"
         :class="{
           'h-full': maxDimension === 'height',
-          'w-full': maxDimension === 'width',
         }"
       />
     </div>
