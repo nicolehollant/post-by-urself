@@ -1,11 +1,42 @@
 <template>
-  <div
-    class="grid grid-flow-col auto-cols-[minmax(100%,max-content)] w-full overflow-auto gap-2 shrink-0 pt-2 snap-x"
+  <div class="relative w-full" ref="container">
+    <div
+      class="grid grid-flow-col items auto-cols-max w-full overflow-auto gap-2 shrink-0 pt-2 snap-x"
+      v-if="media.length"
+      :key="lastImageWidth"
+      :style="{
+        paddingRight: media.length > 1 && lastImageWidth > 0 ? `${containerWidth - lastImageWidth}px` : '',
+      }"
+    >
+      <button
+        @click="() => (activeMediaIndex = i)"
+        v-for="(pic, i) in media"
+        class="h-max w-max snap-start"
+        :style="{
+          maxWidth: `${containerWidth}px`,
+        }"
+      >
+        <div class="rounded-lg overflow-hidden max-h-[calc(75vh-8rem)] border-2 border-gray-800/20 max-w-full h-full">
+          <img
+            :src="pic.url"
+            :alt="pic.alt"
+            @load="() => setIntrinsicSizeClassesOnLoad()"
+            class="object-cover mx-auto max-w-full max-h-[calc(75vh-8rem)] aspect-auto"
+            :class="{
+              'h-full': maxDimension === 'height',
+            }"
+          />
+        </div>
+      </button>
+    </div>
+  </div>
+  <!-- <div
+    class="relative grid grid-flow-col auto-cols-[fit-content(100%)] w-full overflow-auto gap-2 shrink-0 pt-2 snap-x"
     v-if="media.length"
+    ref="container"
     :style="{
       paddingRight: media.length > 1 && lastImageWidth > 0 ? `calc(100% - ${lastImageWidth}px)` : '',
     }"
-    ref="container"
   >
     <button @click="() => (activeMediaIndex = i)" v-for="(pic, i) in media" class="h-max w-max max-w-full snap-start">
       <div class="rounded-lg overflow-hidden max-h-[calc(75vh-8rem)] border-2 border-gray-800/20 max-w-full h-full">
@@ -20,7 +51,7 @@
         />
       </div>
     </button>
-  </div>
+  </div> -->
   <SenpDrawer
     :open="activeMediaIndex != null"
     @update:open="() => (activeMediaIndex = null)"
@@ -91,6 +122,8 @@
 </template>
 
 <script setup lang="ts">
+import { useElementSize } from '@vueuse/core'
+
 const props = defineProps<{
   media: { url: string; alt: string }[]
 }>()
@@ -101,6 +134,7 @@ const activeMediaIndex = ref<number | null>()
 const maxDimension = ref('height')
 const lastImageWidth = ref(0)
 const container = ref<null | HTMLDivElement>(null)
+const { width: containerWidth } = useElementSize(container)
 
 function setIntrinsicSizeClassesOnLoad() {
   if (props.media.length === props.media.length - 1) {
@@ -117,8 +151,24 @@ function setIntrinsicSizeClassesOnLoad() {
   }
 }
 
+watch(
+  () => containerWidth.value,
+  () => {
+    nextTick(() => {
+      nextTick(() => {
+        lastImageWidth.value =
+          [...(container.value?.querySelectorAll('button') || [])].at(-1)?.getBoundingClientRect().width ?? 0
+      })
+    })
+  }
+)
+
 onMounted(() => {
-  lastImageWidth.value =
-    [...(container.value?.querySelectorAll('button') || [])].at(-1)?.getBoundingClientRect().width ?? 0
+  nextTick(() => {
+    nextTick(() => {
+      lastImageWidth.value =
+        [...(container.value?.querySelectorAll('button') || [])].at(-1)?.getBoundingClientRect().width ?? 0
+    })
+  })
 })
 </script>
