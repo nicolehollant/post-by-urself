@@ -3,7 +3,7 @@
     <template #heading>
       <div class="w-full flex items-center gap-4 text-xl md:gap-8 justify-between">
         <div class="flex items-center gap-4 text-xl md:gap-8">
-          <NuxtLink to="/" class="flex items-center">
+          <NuxtLink to="/feed" class="flex items-center">
             <Icon name="ant-design:arrow-left-outlined" />
           </NuxtLink>
 

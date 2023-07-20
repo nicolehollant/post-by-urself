@@ -1,14 +1,14 @@
 <template>
   <div
-    class="grid grid-flow-col auto-cols-max w-full overflow-auto gap-2 shrink-0 pt-2 snap-x"
+    class="grid grid-flow-col auto-cols-[minmax(100%,max-content)] w-full overflow-auto gap-2 shrink-0 pt-2 snap-x"
     v-if="media.length"
     :style="{
-      paddingRight: lastImageWidth > 0 ? `calc(100% - ${lastImageWidth}px)` : '',
+      paddingRight: media.length > 1 && lastImageWidth > 0 ? `calc(100% - ${lastImageWidth}px)` : '',
     }"
     ref="container"
   >
-    <button @click="() => (activeMediaIndex = i)" v-for="(pic, i) in media" class="h-max snap-start">
-      <div class="rounded-lg overflow-hidden max-h-[calc(75vh-8rem)] border-2 border-gray-800/20 w-full h-full">
+    <button @click="() => (activeMediaIndex = i)" v-for="(pic, i) in media" class="h-max w-max max-w-full snap-start">
+      <div class="rounded-lg overflow-hidden max-h-[calc(75vh-8rem)] border-2 border-gray-800/20 max-w-full h-full">
         <img
           :src="pic.url"
           :alt="pic.alt"
