@@ -16,7 +16,7 @@
         },
         footer: {
           extend:
-            ' bg-gray-950/70 bg-gradient-to-r flex items-center justify-around from-gray-950/50 to-gray-900/50 backdrop-blur border-t border-gray-800',
+            ' bg-gray-950/70 bg-gradient-to-r flex items-center justify-around from-gray-950/50 to-gray-900/50 backdrop-blur border-t border-gray-800 pb-6',
         },
         sidebarLeft: { extend: 'border-r border-gray-800' },
         sidebarRight: { extend: 'border-l border-gray-800' },
